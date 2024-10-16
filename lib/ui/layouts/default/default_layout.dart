@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'components/app_bar.dart';
+import 'components/bottom_navigation_bar.dart';
 
 class DefaultLayout extends HookWidget {
   final Widget body;
@@ -23,6 +24,7 @@ class DefaultLayout extends HookWidget {
           child: body,
         ),
       ),
+      bottomNavigationBar: const BottomNavigationBarComponent(),
     );
   }
 }
