@@ -1,58 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expenses/ui/layouts/default/default_layout.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePage extends HookWidget {
+import 'components/bottom_navigation_bar.dart';
+import 'pages/categories/categories_page.dart';
+import 'pages/dashboard/dashboard_page.dart';
+import 'pages/menu/menu_page.dart';
+import 'pages/profile/profile_page.dart';
+import 'pages/transactions/transactions_page.dart';
+import 'utils/providers/current_page_provider.dart';
+import 'utils/providers/page_controller_provider.dart';
+
+class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pageController = ref.watch(pageControllerNotifierProvider);
+
     return DefaultLayout(
-      body: Column(
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (index) =>
+            ref.read(currentPageProvider.notifier).index = index,
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          const Expanded(
-            child: Center(
-              child: Text(
-                'Home Page',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontFamily: 'Readex Pro',
-                  color: Color(0xFF585C67),
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () => context.go('/transactions'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              elevation: 10.0,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(7.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Go to Transactions Page',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          DashboardPage(),
+          TransactionsPage(),
+          CategoriesPage(),
+          ProfilePage(),
+          MenuPage()
         ],
       ),
+      bottomNavigationBar: BottomNavigationBarComponent(),
     );
   }
 }

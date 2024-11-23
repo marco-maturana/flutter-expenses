@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'router_provider.dart';
+part of 'current_page_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'059b69f642caca6613cff217c6e25f989f3a9ff2';
+String _$currentPageHash() => r'5139848bfbf023eef0f0678edcec3907c730d255';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = AutoDisposeProvider<RouterConfig<Object>?>.internal(
-  router,
-  name: r'routerProvider',
+/// See also [CurrentPage].
+@ProviderFor(CurrentPage)
+final currentPageProvider =
+    AutoDisposeNotifierProvider<CurrentPage, int>.internal(
+  CurrentPage.new,
+  name: r'currentPageProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$currentPageHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RouterRef = AutoDisposeProviderRef<RouterConfig<Object>?>;
+typedef _$CurrentPage = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

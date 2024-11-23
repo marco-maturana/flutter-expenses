@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'components/app_bar.dart';
-import 'components/bottom_navigation_bar.dart';
 
 class DefaultLayout extends HookWidget {
   final Widget body;
-  final appBar = const AppBarComponent(title: 'Flutter Expenses');
+  final PreferredSizeWidget? bottomNavigationBar;
 
-  const DefaultLayout({super.key, required this.body});
+  const DefaultLayout({
+    super.key,
+    required this.body,
+    this.bottomNavigationBar,
+  });
 
   @override
   Widget build(BuildContext context) {
+    const appBar = AppBarComponent(title: 'Flutter Expenses');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar,
@@ -20,11 +25,12 @@ class DefaultLayout extends HookWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           height: MediaQuery.of(context).size.height -
               (MediaQuery.of(context).padding.top +
-                  appBar.preferredSize.height),
+                  appBar.preferredSize.height +
+                  (bottomNavigationBar?.preferredSize.height ?? 0)),
           child: body,
         ),
       ),
-      bottomNavigationBar: const BottomNavigationBarComponent(),
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }
